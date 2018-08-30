@@ -5,32 +5,30 @@ namespace App\Home;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use rollun\datastore\Rql\RqlParser;
-use rollun\dic\InsideConstruct;
+use rollun\callback\Callback\Callback;
+use rollun\callback\Callback\Interruptor\Process;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Template\TemplateRendererInterface;
-use rollun\datastore\DataStore\Interfaces\DataStoresInterface;
 
 class HomePageAction implements ServerMiddlewareInterface
 {
-    protected $dataStore;
+    protected $callback;
 
-    protected $template;
-
-    public function __construct(DataStoresInterface $dataStore = null, TemplateRendererInterface $template = null)
+    public function __construct()
     {
-        $depencies = InsideConstruct::init([
-            'dataStore' => 'bookHttpStore',
-            'template' => TemplateRendererInterface::class
-        ]);
-        print_r($depencies);
+        $this->callback = new Callback([$this, 'writeToFile']);
     }
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $query = RqlParser::rqlDecode('or(eq(id,2),eq(id,3))sort(-id)select(name)');
-        $books = $this->dataStore->query($query);
+//        call_user_func($this->callback, null);
+        $interaptor = new Process($this->callback);
+        $interaptor(null);
+        return new HtmlResponse('Hello Word!');
+    }
 
-        return new HtmlResponse(json_encode($books));
+    public function writeToFile()
+    {
+        sleep(5);
+        file_put_contents('data/test_callable.txt', time());
     }
 }

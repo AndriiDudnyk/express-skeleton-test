@@ -11,7 +11,9 @@
     "php": "^7.0",
     "http-interop/http-middleware": "^0.4.1",
     "rollun-com/rollun-actionrender": "^6.0",
+    "rollun-com/rollun-callback": "^4.6",
     "rollun-com/rollun-datastore": "^5.0",
+    "rollun-com/rollun-logger": "^4.1",
     "rollun-com/rollun-utils": "^4.2",
     "zendframework/zend-expressive": "^2.2",
     "zendframework/zend-expressive-fastroute": "^2.2",
@@ -35,7 +37,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AppTest\\": "test/AppTest/",
+      "test\\": "test/",
       "App\\": "src/App/"
     }
   },

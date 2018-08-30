@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'dependencies' => [
+        'aliases' => [
+            \Psr\Log\LoggerInterface::class => \rollun\logger\SimpleLogger::class
+        ],
+        'invokables' => [
+            \rollun\logger\SimpleLogger::class => \rollun\logger\SimpleLogger::class
+        ],
+    ],
     'db' => [
         'driver'   => 'Pdo_Mysql',
         'database' => 'test',

@@ -37,11 +37,11 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-//                HomePageAction::class => HomePageFactory::class,
+                HomePageAction::class => HomePageFactory::class,
             ],
-            'invokables' => [
-                HomePageAction::class => HomePageAction::class,
-            ]
+//            'invokables' => [
+//                HomePageAction::class => HomePageAction::class,
+//            ]
         ];
     }
 
